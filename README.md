@@ -20,4 +20,7 @@ After a bit of research BeautifulSoup seems to be the best approach to parse an 
 I now have finished the get_news function, and adjusted the test to account for some mistakes I did while creating it, to correctly filter the title, number, points and comments I needed to have different approaches since unfortunately they are not all in the same <tr>, and they dont all have classes that make it easy to parse.
 For the title and rank I just needed to filter the <tr> with classes "athing" and extract from them the tags with class "titleline" and "rank", meanwhile for the points and comments I needed to get the next sibling to the "athing" tags, and then navigate inside it for the comments tag since id did not have any class (the points tag had the a class to find it) then I needed to parse the int from the points and the comments tags.
 
-The test for news extraction is now completed.
+The test for news extraction is now passed.
+ 
+
+Implemented tests for sorting and filtering, checking for all the required parameters as well as ascending and descending sortings.

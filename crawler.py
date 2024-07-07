@@ -50,3 +50,6 @@ class WebCrawler:
             'comments': WebCrawler.get_comments(tag) } for tag in raw_news]
 
         return news
+    
+# class NewsHandler:
+    
