@@ -3,9 +3,7 @@ import unittest
 # ---- parameters -----
 # url of the website we are scrapping
 url = 'https://news.ycombinator.com/'
-html = ''
-news = {}
-from crawler import WebCrawler
+from crawler import NewsHandler, WebCrawler
 
 class TestChallengeFunctions(unittest.TestCase):  
     
@@ -16,6 +14,7 @@ class TestChallengeFunctions(unittest.TestCase):
 
     # Test for the correct extraction of news from the hacker news website
     def test_extract_news(self):
+        html = WebCrawler.get_html(url)
         news = WebCrawler.get_news(html)
         # we check that the amount of news is the one expected
         self.assertEqual(len(news), 30)
@@ -27,17 +26,21 @@ class TestChallengeFunctions(unittest.TestCase):
 
     # Test for filtering news by title work length
     def test_filer_by_word_count(self):
-        long_news = NewsHandler.filter_word_count(count = 5, greater = True )
-        short_news = NewsHandler.filter_word_count(count = 5, greater = False )
-        self.assertIn(len(short_news) + len(long_news), 30)
+        html = WebCrawler.get_html(url)
+        unfiltered_news = WebCrawler.get_news(html)
+        long_news = NewsHandler.filter_word_count(news = unfiltered_news, count = 5, greater = True )
+        short_news = NewsHandler.filter_word_count(news = unfiltered_news, count = 5, greater = False )
+        self.assertEqual(len(short_news) + len(long_news), 30)
     
     # Test for news sorting
     def test_news_sorting(self):
-        sorted_news = NewsHandler.sortBy(key = 'comments', ascending = True)
+        html = WebCrawler.get_html(url)
+        news = WebCrawler.get_news(html)
+        sorted_news = NewsHandler.sortBy(news, key = 'comments', ascending = True)
         is_sorted = all(a <= b for a, b in zip(sorted_news.comments, sorted_news[1:].comments))
         self.assertTrue(is_sorted, "correctly sorts by comments in ascending order")
 
-        sorted_news = NewsHandler.sortBy(key = 'points', ascending = False)
+        sorted_news = NewsHandler.sortBy(news,  key = 'points', ascending = False)
         is_sorted = all(a >= b for a, b in zip(sorted_news.comments, sorted_news[1:].comments))
         self.assertTrue(is_sorted, "correctly sorts by oints in descending order")
 

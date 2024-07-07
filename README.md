@@ -22,5 +22,5 @@ For the title and rank I just needed to filter the <tr> with classes "athing" an
 
 The test for news extraction is now passed.
  
-
 Implemented tests for sorting and filtering, checking for all the required parameters as well as ascending and descending sortings.
+Added a function to filter by title word count, it splits the title into strings, checks whether its smaller or bigger than the given count argument, and then depending on if you want the articles longer than that count or the ones smaller/equal then it returns those.

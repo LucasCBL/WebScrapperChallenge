@@ -36,7 +36,7 @@ class WebCrawler:
                 if(span_children_tags and len(span_children_tags) == 4):
                     return WebCrawler.get_number(span_children_tags[3])
         return 0
-
+    # Returns the news articles from the website in an object format
     def get_news(html):
         soup = BeautifulSoup(html, 'html.parser')
 
@@ -51,5 +51,20 @@ class WebCrawler:
 
         return news
     
-# class NewsHandler:
+class NewsHandler:
+    # Filters news articles by title word count, uses count variable as a threshold, and then greater variable as a boolean flag to decide 
+    #whether to take the articles bigger than the threshhold (if set to True) or the ones smaller (if it is set to False)
+    def filter_word_count(news, count, greater):
+        filtered = []
+        for article in news:
+            word_count = len(article['title'].split())
+            is_greater = word_count > count
+            # if it is longer than count words and greater == true we add it as we are filtering for longer words, if it is smaller but greater is False we also add it,
+            #since we are filtering for shorter frases
+            if(is_greater == greater):
+                filtered.append(article)
+        return filtered
+    
+            
+
     
