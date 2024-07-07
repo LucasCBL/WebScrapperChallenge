@@ -14,3 +14,10 @@ note: I am using the standard library unittest for testing, so tests are ran usi
 The next step is adding the test for the news extraction, in this case I will test that the amount extracted is 30, and that the resulting objects contain all the expected keys.
 
 While doing this i re-read the test, and am confused by the line "The solution should store usage data, including at least the request timestamp and a field to identify the applied filter" as before reading this again it hadnt hit me that it would be an interfacing program, as while reading it I originally thought it to be a program that would return the requested data either on the terminal or as a csv file, I had not thought that the filtering would be an option chosen by the user. Fortunately this doesnt change my approach, and will not change my current plans besides when it eventually comes to the point where I make the interface.
+
+After a bit of research BeautifulSoup seems to be the best approach to parse an html file, so next step is extracting all the items with class 'athing' (deduced after inspecting the hackernews website), and then etracting the number, title, comments and points from those to create an array of "news" objects.
+
+I now have finished the get_news function, and adjusted the test to account for some mistakes I did while creating it, to correctly filter the title, number, points and comments I needed to have different approaches since unfortunately they are not all in the same <tr>, and they dont all have classes that make it easy to parse.
+For the title and rank I just needed to filter the <tr> with classes "athing" and extract from them the tags with class "titleline" and "rank", meanwhile for the points and comments I needed to get the next sibling to the "athing" tags, and then navigate inside it for the comments tag since id did not have any class (the points tag had the a class to find it) then I needed to parse the int from the points and the comments tags.
+
+The test for news extraction is now completed.
