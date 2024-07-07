@@ -35,13 +35,15 @@ class TestChallengeFunctions(unittest.TestCase):
     # Test for news sorting
     def test_news_sorting(self):
         html = WebCrawler.get_html(url)
-        news = WebCrawler.get_news(html)
-        sorted_news = NewsHandler.sortBy(news, key = 'comments', ascending = True)
-        is_sorted = all(a <= b for a, b in zip(sorted_news.comments, sorted_news[1:].comments))
+        unsorted_news = WebCrawler.get_news(html)
+        sorted_news = NewsHandler.sort_by(news = unsorted_news, value = 'comments', ascending = True)
+        sorted_comments = [article['comments'] for article in sorted_news]
+        is_sorted = all(a <= b for a, b in zip(sorted_comments, sorted_comments[1:]))
         self.assertTrue(is_sorted, "correctly sorts by comments in ascending order")
 
-        sorted_news = NewsHandler.sortBy(news,  key = 'points', ascending = False)
-        is_sorted = all(a >= b for a, b in zip(sorted_news.comments, sorted_news[1:].comments))
+        sorted_news = NewsHandler.sort_by(news = unsorted_news,  value = 'points', ascending = False)
+        sorted_points = [article['points'] for article in sorted_news]
+        is_sorted = all(a >= b for a, b in zip(sorted_points, sorted_points[1:]))
         self.assertTrue(is_sorted, "correctly sorts by oints in descending order")
 
 

@@ -65,6 +65,7 @@ class NewsHandler:
                 filtered.append(article)
         return filtered
     
-            
+    def sort_by(news, value , ascending):
+            return sorted(news, key=lambda article: article[value] , reverse=not ascending)
 
     
