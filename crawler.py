@@ -59,7 +59,8 @@ class NewsHandler:
     def filter_word_count(news, count, greater):
         filtered = []
         for article in news:
-            word_count = len(article['title'].split())
+            parsed_title = re.sub('[^a-zA-Z\d\s:]', '', article['title'])
+            word_count = len(parsed_title.split())
             is_greater = word_count > count
             # if it is longer than count words and greater == true we add it as we are filtering for longer words, if it is smaller but greater is False we also add it,
             #since we are filtering for shorter frases
