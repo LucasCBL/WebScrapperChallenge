@@ -1,6 +1,8 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
+import csv
+ 
 
 class WebCrawler:
     # returns the html of the provided url in a string
@@ -44,8 +46,8 @@ class WebCrawler:
         raw_news = soup.find_all(class_='athing')
 
         news = [{
-            'title': tag.find(class_='titleline').text,
             'number': tag.find(class_='rank').text,
+            'title': tag.find(class_='titleline').text,
             'points': WebCrawler.get_score(tag), 
             'comments': WebCrawler.get_comments(tag) } for tag in raw_news]
 
@@ -68,4 +70,9 @@ class NewsHandler:
     def sort_by(news, value , ascending):
             return sorted(news, key=lambda article: article[value] , reverse=not ascending)
 
-    
+    def export_csv(data, file):
+        with open(file + '.csv', 'w', encoding="utf-8") as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=list(data[0].keys()))
+            writer.writeheader()
+            writer.writerows(data)
+        
