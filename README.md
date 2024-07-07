@@ -1,5 +1,6 @@
 Hi, this Readme file is going to be both a log of my decisions during this test and if necessary a guide on how to run my code, although this will be secondary.
 
+# Design process 
 
 The first main decision was choosing the language, I juggled between doing it in c# which is the language im most familiar with and Python, which I believe to be more apt for this specific challenge, in the end due to time constraints I am going with python, since I know it will be faster due to how powerful the python libraries are for this type of challenges. The downside of this is that it may end up becoming too easy and unhelpful in what is supposed to be a showcase of my technical skills, unfortunately I only have today available in the 72h period I was given to accomplish this test, so I will approach the problem with a focus on having a MVP ready and then if I have the time for it I will either expand upon it or make another version completely.
 
@@ -27,3 +28,13 @@ Added a function to filter by title word count, it splits the title into strings
 
 finally after this is just implemented a simple sorting function using the sorted function.
 All test are now passed, next step is just doing the UI part of this, and adding logs to it.
+
+For the 'UI' I decided to take an approach of flexibility, rather than just getting straight to the goal, since the goal was to make something that was "Able" to filter and sort in the ways requested, so I thought it should be able to do any combination of those parameters instead of only the ones specified.
+
+# Running the program
+## exe
+Ive included an executable in the folder dist to allow for quick execution, otherwise you can run the main.py file with python
+
+## tests
+
+To run the tests you need to run  "python -m unittest discover"  while in the folder

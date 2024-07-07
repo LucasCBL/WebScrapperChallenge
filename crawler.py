@@ -46,7 +46,7 @@ class WebCrawler:
         raw_news = soup.find_all(class_='athing')
 
         news = [{
-            'number': tag.find(class_='rank').text,
+            'number': WebCrawler.get_number(tag.find(class_='rank')),
             'title': tag.find(class_='titleline').text,
             'points': WebCrawler.get_score(tag), 
             'comments': WebCrawler.get_comments(tag) } for tag in raw_news]
@@ -68,7 +68,7 @@ class NewsHandler:
         return filtered
     
     def sort_by(news, value , ascending):
-            return sorted(news, key=lambda article: article[value] , reverse=not ascending)
+            return sorted(news, key=lambda article: int(article[value]) , reverse=not ascending)
 
     def export_csv(data, file):
         with open(file + '.csv', 'w', encoding="utf-8") as csvfile:
